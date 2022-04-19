@@ -44,7 +44,7 @@ const ProjectDetailsSlider = ({ arr, current, PrevSlide, NextSlide }) => {
                     <i className="ph-arrow-right-fill"></i>&nbsp;
                     <span className="reached">{item?.balance} /</span>
                     <span className="target">
-                      &nbsp;{item?.cause_approval?.goal}
+                      &nbsp;{item?.donations?.goal}
                     </span>
                   </div>
 
@@ -53,7 +53,7 @@ const ProjectDetailsSlider = ({ arr, current, PrevSlide, NextSlide }) => {
                       className="prj_range_reached"
                       style={{
                         width: `calc(100% * ${
-                          item?.balance / item?.cause_approval?.goal
+                          item?.balance / item?.donations?.goal
                         })`,
                       }}
                     ></div>
