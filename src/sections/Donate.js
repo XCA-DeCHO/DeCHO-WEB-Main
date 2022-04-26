@@ -114,6 +114,7 @@ const Donate = () => {
           current={current}
           PrevSlide={PrevSlide}
           NextSlide={NextSlide}
+          isDonation={true}
         />
 
         <div className="vote_button_website">

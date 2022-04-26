@@ -114,6 +114,7 @@ const Vote = () => {
           current={current}
           PrevSlide={PrevSlide}
           NextSlide={NextSlide}
+          isDonation={false}
         />
 
         <div className="vote_button_website">

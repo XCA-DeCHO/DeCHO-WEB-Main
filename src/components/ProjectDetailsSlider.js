@@ -1,7 +1,13 @@
 import $ from "jquery";
 import React, { useEffect } from "react";
 
-const ProjectDetailsSlider = ({ arr, current, PrevSlide, NextSlide }) => {
+const ProjectDetailsSlider = ({
+  arr,
+  current,
+  PrevSlide,
+  NextSlide,
+  isDonation,
+}) => {
   // Slider transform divisor and multiplier
   const divisor = `calc(100% / (${arr.length}))`;
   const multiplier = `calc(100% * (${arr.length}))`;
@@ -44,7 +50,10 @@ const ProjectDetailsSlider = ({ arr, current, PrevSlide, NextSlide }) => {
                     <i className="ph-arrow-right-fill"></i>&nbsp;
                     <span className="reached">{item?.balance} /</span>
                     <span className="target">
-                      &nbsp;{item?.donations?.goal}
+                      &nbsp;
+                      {isDonation
+                        ? item?.donations?.goal
+                        : item?.cause_approval?.goal}
                     </span>
                   </div>
 
@@ -53,7 +62,10 @@ const ProjectDetailsSlider = ({ arr, current, PrevSlide, NextSlide }) => {
                       className="prj_range_reached"
                       style={{
                         width: `calc(100% * ${
-                          item?.balance / item?.donations?.goal
+                          item?.balance /
+                          (isDonation
+                            ? item?.donations?.goal
+                            : item?.cause_approval?.goal)
                         })`,
                       }}
                     ></div>
