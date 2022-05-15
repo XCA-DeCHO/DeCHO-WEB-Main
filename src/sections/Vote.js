@@ -1,33 +1,26 @@
 import Slider from "../components/Slider";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ProjectDetailsSlider from "../components/ProjectDetailsSlider";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
+import { BarLoader } from "react-spinners";
 
 const Vote = () => {
-  // Current Slide Index
-  const dispatch = useDispatch();
   const [current, update] = useState(1);
 
-  // Toggle to show error component function
-  const [isError, setIsError] = useState();
-  const [approvals, setApprovals] = useState([]);
-
-  // Fetching data
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
+  const fetchUnapprovedCauses = async () =>
     fetch("https://app.decho.finance/api/v1/causes")
       .then((response) => response.json())
-      .then((data) => {
-        setIsError(false);
-        setApprovals(data.data.filter((cause) => cause.status === "pending"));
-        setLoading(false);
-      })
-      .catch((err) => {
-        setIsError(true);
-        setLoading(false);
-      });
-  }, []);
+      .then((data) => data.data.filter((cause) => cause.status === "pending"));
+
+  const { data, isLoading, isError } = useQuery(
+    "UnapprovedCauses",
+    fetchUnapprovedCauses,
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
 
   // Slide Controls
   const PrevSlide = () => {
@@ -36,12 +29,35 @@ const Vote = () => {
     }
   };
   const NextSlide = () => {
-    if (current !== approvals.length) {
+    if (current !== data.length) {
       update((prev) => prev + 1);
     }
   };
 
   const darkTheme = useSelector((state) => state.status.darkTheme);
+
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+          justifyContent: "center",
+          textTransform: "uppercase",
+        }}
+      >
+        <p style={{ marginBottom: "12px" }}>Loading</p>
+
+        <BarLoader
+          color={"#aaa"}
+          loading={true}
+          size={10}
+          speedMultiplier={0.5}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="app_pages_container">
@@ -91,9 +107,9 @@ const Vote = () => {
         </div>
 
         <Slider
-          arr={approvals}
+          arr={data}
           type={"vote"}
-          loading={loading}
+          isLoading={isLoading}
           current={current}
           PrevSlide={PrevSlide}
           NextSlide={NextSlide}
@@ -103,14 +119,14 @@ const Vote = () => {
       <div
         className="vote_card"
         style={{
-          display: !loading && approvals.length === 0 ? "none" : "flex",
+          display: !isLoading && data.length === 0 ? "none" : "flex",
         }}
       >
         <p className="hd_title">Project Details</p>
         <hr className="vert_line" />
 
         <ProjectDetailsSlider
-          arr={approvals}
+          arr={data}
           current={current}
           PrevSlide={PrevSlide}
           NextSlide={NextSlide}
@@ -118,31 +134,14 @@ const Vote = () => {
         />
 
         <div className="vote_button_website">
-          <button
-            className="vote_button"
-            onClick={() => {
-              if (!!approvals[current - 1]) {
-                dispatch({
-                  type: "use_modal",
-                  modalData: {
-                    ...approvals[current - 1],
-                    type: "vote",
-                    currency: "CHOICE",
-                  },
-                });
-              }
-            }}
-          >
-            Vote for project
-          </button>
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={`https://${approvals[current - 1]?.long_description}`}
-            className="prj_website"
-          >
-            <i className="ph-arrow-square-out-fill"></i>
-          </a>
+          {!!data[current - 1]?.id ? (
+            <Link
+              className="vote_button"
+              to={`/preview/${data[current - 1]?.id}`}
+            >
+              View project
+            </Link>
+          ) : null}
         </div>
       </div>
     </div>

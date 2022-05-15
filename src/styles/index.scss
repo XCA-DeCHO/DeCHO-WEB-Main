@@ -26,6 +26,7 @@ body {
   height: 100%;
   max-width: 1440px;
   overflow-x: hidden;
+  background: var(--bg_1);
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1032,3 +1033,5 @@ $breakpoint-tablet: 1050px;
 
   background: url("data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 height=%27100%25%27 width=%27100%25%27> <defs> <pattern id=%27doodad%27 width=%2740%27 height=%2740%27 viewBox=%270 0 40 40%27 patternUnits=%27userSpaceOnUse%27 patternTransform=%27rotate%280%29%27> <rect width=%27100%25%27 height=%27100%25%27 fill=%27%230e0e0e%27/> <path d=%27M-0.5 20h1v1h-1zM39.5 20h1v1h-1z%27 fill=%27%23555%27/> <path d=%27M19.75 20h0.5v1h-0.5zM59.75 20h0.5v1h-0.5z%27 fill=%27%230e0e0e%27/> </pattern> </defs> <rect fill=%27url%28%23doodad%29%27 height=%27200%25%27 width=%27200%25%27/> </svg>");
 }
+
+@import url("./projectview.scss");

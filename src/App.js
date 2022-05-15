@@ -3,6 +3,7 @@ import stores from "./store/stores";
 import Navbar from "./components/Navbar";
 import MainApp from "./sections/MainApp";
 import { Provider as ReduxProvider, useSelector } from "react-redux";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const renderLoader = () => <p></p>;
 
@@ -21,10 +22,13 @@ const RootComponent = () => {
 };
 
 const App = () => {
+  const queryClient = new QueryClient();
   return (
     <Suspense fallback={renderLoader()}>
       <ReduxProvider store={stores}>
-        <RootComponent />
+        <QueryClientProvider client={queryClient}>
+          <RootComponent />
+        </QueryClientProvider>
       </ReduxProvider>
     </Suspense>
   );

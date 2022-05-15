@@ -7,6 +7,7 @@ import PageNotFound from "./PageNotFound";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppModal from "../components/AppModal";
 import ConnectWalletModal from "../components/ConnectWalletModal";
+import ProjectView from "./ProjectView";
 
 const MainApp = () => {
   return (
@@ -20,6 +21,7 @@ const MainApp = () => {
             <Route path="/" element={<Splash />} />
             <Route path="/vote" element={<Vote />} />
             <Route path="/donate" element={<Donate />} />
+            <Route path="/preview/:id" element={<ProjectView />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>

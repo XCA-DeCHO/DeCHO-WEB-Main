@@ -1,13 +1,7 @@
 import $ from "jquery";
 import React, { useEffect } from "react";
 
-const ProjectDetailsSlider = ({
-  arr,
-  current,
-  PrevSlide,
-  NextSlide,
-  isDonation,
-}) => {
+const ProjectDetailsSlider = ({ arr, current, isDonation }) => {
   // Slider transform divisor and multiplier
   const divisor = `calc(100% / (${arr.length}))`;
   const multiplier = `calc(100% * (${arr.length}))`;
