@@ -44,6 +44,53 @@ const ProjectView = () => {
     );
   }
 
+  if (data.status === "done") {
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+          justifyContent: "center",
+          textTransform: "uppercase",
+        }}
+      >
+        <p style={{ marginBottom: "12px" }}>{data?.title}</p>
+        <p style={{ marginBottom: "12px" }}>Project Already Funded</p>
+
+        <BarLoader
+          color={"#aaa"}
+          loading={true}
+          size={10}
+          speedMultiplier={0.5}
+        />
+      </div>
+    );
+  }
+  if (data.status === "canceled") {
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+          justifyContent: "center",
+          textTransform: "uppercase",
+        }}
+      >
+        <p style={{ marginBottom: "12px" }}>{data?.title}</p>
+        <p style={{ marginBottom: "12px" }}>Project Cancelled</p>
+
+        <BarLoader
+          color={"#aaa"}
+          loading={true}
+          size={10}
+          speedMultiplier={0.5}
+        />
+      </div>
+    );
+  }
+
   if (isError) {
     return (
       <p style={{ textTransform: "uppercase" }}>
