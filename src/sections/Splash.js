@@ -58,7 +58,7 @@ const Splash = () => {
             <i className="ph-swap-fill" style={{ fontSize: "17px" }}></i>
           </div>
           <p className="int_txt">
-            Donate to projects by sending <span>CHOICE</span> to the wallet
+            Donate to projects by sending <span>DeLTA</span> to the wallet
             address attached.
           </p>
         </div>
