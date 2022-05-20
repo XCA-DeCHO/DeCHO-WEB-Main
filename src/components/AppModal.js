@@ -44,7 +44,7 @@ const AppModal = () => {
 
     if (modalData.currency === "ALGO") {
       canMakeDonationTxn(connectedWalletAddr, newAmountToSend * 1000000);
-    } else if (modalData.currency === "CHOICE") {
+    } else if (modalData.currency === "DeLTA") {
       canMakeApprovalTxn(connectedWalletAddr, ASA_ID, newAmountToSend);
     }
 
@@ -170,8 +170,7 @@ const AppModal = () => {
             <div className="vote_info">
               <p className="vote_info_hd">
                 Send ${modalData?.currency} to this address to {modalData?.type}{" "}
-                or scan the code below; ${modalData?.currency} sent will be
-                refunded and rewarded!
+                or scan the code below;
               </p>
             </div>
 

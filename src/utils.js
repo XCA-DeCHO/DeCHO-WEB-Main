@@ -3,7 +3,7 @@ import algosdk from "algosdk";
 import WalletConnectQRCodeModal from "algorand-walletconnect-qrcode-modal";
 import WalletConnect from "@walletconnect/client";
 
-const ASA_ID = 297995609;
+const ASA_ID = 722955559;
 const myAlgoConnect = new MyAlgoConnect();
 const algodClient = new algosdk.Algodv2(
   "",
@@ -38,7 +38,7 @@ const createTransaction = (amount, recipientAddr, senderAddr, currency) => {
           }
         );
         return transaction;
-      } else if (currency === "CHOICE") {
+      } else if (currency === "DeLTA") {
         const transaction =
           algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
             from: senderAddr,

@@ -186,7 +186,7 @@ const ProjectView = () => {
                     modalData: {
                       ...data,
                       type: "vote",
-                      currency: "CHOICE",
+                      currency: "DeLTA",
                     },
                   });
                 }
