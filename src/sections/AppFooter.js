@@ -37,15 +37,6 @@ const AppFooter = () => {
           <span style={{ paddingTop: "2px" }}>&nbsp;DeCHO</span>
         </a>
       </ul>
-
-      <a
-        href="https://mobile.decho.finance"
-        target="_blank"
-        rel="noreferrer"
-        className="google_play_link"
-      >
-        <img src="https://firebasestorage.googleapis.com/v0/b/decho-b0631.appspot.com/o/DeCHO%20for%20algorand%20ecosystem%20Color%20Logo.png?alt=media&token=ff33291c-b160-4b76-8ffc-3075167961d5" alt="" />
-      </a>
     </footer>
   );
 };
