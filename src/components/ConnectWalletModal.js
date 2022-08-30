@@ -1,17 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
 import { myAlgoConnect } from "../utils";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import WalletConnectQRCodeModal from "algorand-walletconnect-qrcode-modal";
-import WalletConnect from "@walletconnect/client";
+import { PeraWalletConnect } from "@perawallet/connect";
+
+const peraWallet = new PeraWalletConnect();
 
 const ConnectWalletModal = () => {
   const { openModal } = useSelector((state) => state.status.connectWalletModal);
   const dispatch = useDispatch();
 
+  const [accountAddress, setAccountAddress] = useState(null);
+  const isConnectedToPeraWallet = !!accountAddress;
+
   const [walletAddr, setWalletAddr] = useState(
     localStorage.getItem("walletAddr")
   );
+
 
   const onSelectMyAlgoWallet = async () => {
     if (!walletAddr) {
@@ -31,59 +36,8 @@ const ConnectWalletModal = () => {
     }
   };
 
-  const onSelectPeraWallet = () => {
-    const connector = new WalletConnect({
-      bridge: "https://bridge.walletconnect.org",
-      qrcodeModal: WalletConnectQRCodeModal,
-    });
 
-    if (!connector.connected) {
-      console.log("Another one");
-      connector.createSession();
-    }
 
-    connector.on("connect", (error, payload) => {
-      if (error) {
-        throw error;
-      }
-
-      console.log("Connected...");
-      const { accounts } = payload.params[0];
-
-      localStorage.setItem("walletAddr", accounts[0]);
-      localStorage.setItem("walletProvider", "pera");
-
-      dispatch({
-        type: "close_connect_wallet_modal",
-      });
-      window.location.reload();
-    });
-
-    connector.on("session_update", (error, payload) => {
-      if (error) {
-        throw error;
-      }
-
-      console.log("Session updated...");
-      const { accounts } = payload.params[0];
-
-      localStorage.setItem("walletAddr", accounts[0]);
-      localStorage.setItem("walletProvider", "pera");
-    });
-
-    connector.on("disconnect", (error, payload) => {
-      if (error) {
-        throw error;
-      }
-
-      console.log("Disconnected...");
-
-      localStorage.removeItem("walletAddr");
-      localStorage.removeItem("walletProvider");
-
-      window.location.reload();
-    });
-  };
 
   return (
     <div
@@ -113,19 +67,6 @@ const ConnectWalletModal = () => {
             onClick={onSelectMyAlgoWallet}
           >
             My Algo Wallet
-          </button>
-          <button
-            style={{
-              border: "1px solid black",
-              borderRadius: "8px",
-              padding: "12px 6px",
-              width: "100%",
-              marginTop: "20px",
-              display: "block",
-            }}
-            onClick={onSelectPeraWallet}
-          >
-            Pera Wallet
           </button>
         </div>
         <button
