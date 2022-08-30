@@ -43,7 +43,7 @@ const createTransaction = (amount, recipientAddr, senderAddr, currency) => {
           algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
             from: senderAddr,
             to: recipientAddr,
-            amount: amount,
+            amount: amount * 100,
             assetIndex: ASA_ID,
             suggestedParams,
           });
@@ -73,22 +73,6 @@ const canMakeApprovalTxn = async (address, assetID, amountToSend) => {
         (element) => element["asset-id"] === assetID
       )
     : false;
-
-  // if the address has no ASAs
-  if (myAccountInfo.account.assets.length === 0) {
-    alert(`You need to optin to ASA with ID: ${assetID}`);
-    return;
-  }
-
-  if (!containsASA) {
-    alert(`You need to optin to ASA with ID: ${assetID}`);
-    return;
-  }
-
-  if (amountToSend > balance) {
-    alert("You do not have sufficient balance to make this transaction.");
-    return;
-  }
 };
 
 const canMakeDonationTxn = async (address, amountToSend) => {

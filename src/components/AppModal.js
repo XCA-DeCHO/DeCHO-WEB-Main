@@ -62,8 +62,9 @@ const AppModal = () => {
               .sendRawTransaction(signedTxn.blob)
               .do()
               .then((submittedTxn) => {
+                window.location.reload();
                 return alert(
-                  `Check donation status on https://algoexplorer.io/tx/${submittedTxn.txId}`
+                  `Check donation status on https://algoexplorer.io/tx/${submittedTxn.txId} \n\n You can wait for the transaction to conclude before tapping OK to reload.`
                 );
               })
               .catch((err) =>
@@ -76,6 +77,8 @@ const AppModal = () => {
             alert("An error occured while signing the transaction!")
           );
       } else if (connectedWalletProvider === "pera") {
+
+        alert("Open Pera Wallet to sign Transaction, Tap OK to continue.")
         const txnsToSign = [txn].map((txn) => {
           const encodedTxn = Buffer.from(
             encodeUnsignedTransaction(txn)
@@ -93,25 +96,33 @@ const AppModal = () => {
           .sendCustomRequest(request)
           .then((result) => {
             const decodedR = result.map((element) => {
+
               return element
                 ? new Uint8Array(Buffer.from(element, "base64"))
                 : null;
+
             });
+
 
             // Do something if successful
             algodClient
               .sendRawTransaction(decodedR)
               .do()
               .then((result) => {
+
+                window.location.reload();
+
                 return alert(
-                  `Check donation status on https://algoexplorer.io/tx/${result.txId}`
+                  `Check donation status on https://algoexplorer.io/tx/${result.txId} \n \n You can wait for the transaction to finish before tapping OK to reload the page.`
                 );
+
               })
               .catch((error) => {
                 alert(
                   "An error occured while submitting the transaction to the blockchain!"
                 );
               });
+
           })
           .catch(
             (error) => {
@@ -123,6 +134,11 @@ const AppModal = () => {
       }
     });
   };
+
+
+  function timeout(delay) {
+    return new Promise( res => setTimeout(res, delay) );
+}
 
   return (
     modalData && (
