@@ -136,9 +136,7 @@ const AppModal = () => {
   };
 
 
-  function timeout(delay) {
-    return new Promise( res => setTimeout(res, delay) );
-}
+
 
   return (
     modalData && (

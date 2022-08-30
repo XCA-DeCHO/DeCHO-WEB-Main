@@ -1,17 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { myAlgoConnect } from "../utils";
-import React, { useState, useEffect } from "react";
-
-import { PeraWalletConnect } from "@perawallet/connect";
-
-const peraWallet = new PeraWalletConnect();
+import React, { useState } from "react";
 
 const ConnectWalletModal = () => {
   const { openModal } = useSelector((state) => state.status.connectWalletModal);
   const dispatch = useDispatch();
-
-  const [accountAddress, setAccountAddress] = useState(null);
-  const isConnectedToPeraWallet = !!accountAddress;
 
   const [walletAddr, setWalletAddr] = useState(
     localStorage.getItem("walletAddr")

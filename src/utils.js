@@ -57,23 +57,7 @@ const createTransaction = (amount, recipientAddr, senderAddr, currency) => {
   return returnData;
 };
 
-const canMakeApprovalTxn = async (address, assetID, amountToSend) => {
-  const myAccountInfo = await indexerClient.lookupAccountByID(address).do();
-
-  // get balance of the voter
-  const balance = (await myAccountInfo.assets)
-    ? myAccountInfo.account.assets.find(
-        (element) => element["asset-id"] === assetID
-      ).amount / 100
-    : 0;
-
-  // check if the voter address has the asset
-  const containsASA = (await myAccountInfo.assets)
-    ? myAccountInfo.account.assets.some(
-        (element) => element["asset-id"] === assetID
-      )
-    : false;
-};
+const canMakeApprovalTxn = true;
 
 const canMakeDonationTxn = async (address, amountToSend) => {
   const myAccountInfo = await indexerClient.lookupAccountByID(address).do();
